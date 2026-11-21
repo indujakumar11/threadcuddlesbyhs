@@ -1,0 +1,91 @@
+.gallery {
+  display: grid;
+  grid-template-columns: 84px 1fr;
+  gap: 1rem;
+  align-items: start;
+}
+.gallery__main {
+  grid-column: 2;
+  grid-row: 1;
+  position: relative;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border-radius: var(--radius);
+  background: var(--peach);
+  outline-offset: 4px;
+}
+.gallery__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transform: scale(1.02);
+  transition: opacity 0.6s var(--ease), transform 0.9s var(--ease);
+}
+.gallery__img.is-active { opacity: 1; transform: none; }
+.gallery__nav {
+  position: absolute;
+  top: 50%;
+  translate: 0 -50%;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: rgba(255, 255, 255, 0.88);
+  color: var(--text);
+  opacity: 0;
+  transition: opacity 0.3s var(--ease), background-color 0.3s var(--ease);
+}
+.gallery__nav:hover { background: var(--white); }
+.gallery__nav--prev { left: 1rem; }
+.gallery__nav--next { right: 1rem; }
+.gallery__main:hover .gallery__nav,
+.gallery__main:focus-within .gallery__nav { opacity: 1; }
+.gallery__counter {
+  position: absolute;
+  right: 1rem;
+  bottom: 1rem;
+  padding: 0.3rem 0.75rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.88);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+}
+.gallery__thumbs {
+  grid-column: 1;
+  grid-row: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.gallery__thumb {
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border-radius: calc(var(--radius) * 0.6);
+  border: 1px solid transparent;
+  opacity: 0.55;
+  transition: opacity 0.3s var(--ease), border-color 0.3s var(--ease);
+  background: var(--peach);
+  padding: 0;
+}
+.gallery__thumb img { width: 100%; height: 100%; object-fit: cover; }
+.gallery__thumb:hover { opacity: 0.85; }
+.gallery__thumb.is-active { opacity: 1; border-color: var(--gold); }
+
+@media (max-width: 900px) {
+  .gallery { grid-template-columns: 1fr; }
+  .gallery__main { grid-column: 1; }
+  .gallery__thumbs {
+    grid-column: 1;
+    grid-row: 2;
+    flex-direction: row;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .gallery__thumbs::-webkit-scrollbar { display: none; }
+  .gallery__thumb { width: 68px; flex-shrink: 0; }
+  .gallery__nav { opacity: 1; width: 40px; height: 40px; }
+}

@@ -1,0 +1,35 @@
+.page-header {
+  background: var(--peach);
+  padding: clamp(2.5rem, 6vw, 4.5rem) 0 clamp(2.75rem, 6vw, 4.75rem);
+  text-align: center;
+  border-bottom: 1px solid var(--border);
+}
+.page-header__eyebrow { margin-top: 1.5rem; }
+.page-header__eyebrow::after { content: ''; width: 28px; height: 1px; background: currentColor; }
+.page-header__title {
+  margin-top: 0.9rem;
+  font-size: clamp(2.6rem, 6vw, 4.6rem);
+  font-weight: 400;
+}
+.page-header__title em { font-style: italic; color: var(--gold-deep); }
+.page-header__text {
+  margin: 1rem auto 0;
+  max-width: 52ch;
+  color: var(--text-muted);
+}
+
+.breadcrumb ol {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.breadcrumb li { display: inline-flex; align-items: center; gap: 0.5rem; }
+.breadcrumb li + li::before { content: '/'; color: var(--accent); }
+.breadcrumb a { transition: color 0.25s var(--ease); }
+.breadcrumb a:hover { color: var(--gold); }
+.breadcrumb [aria-current] { color: var(--text); }
