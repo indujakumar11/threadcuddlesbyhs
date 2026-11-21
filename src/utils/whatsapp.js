@@ -9,6 +9,10 @@ export function buildWhatsAppUrl(message = '') {
   return message ? `${BASE}${number}?text=${encodeURIComponent(message)}` : `${BASE}${number}`;
 }
 
+/** Public link to a product page (HashRouter format: <site>/#/product/<ID>). */
+export const getProductPageUrl = (product) =>
+  `${siteConfig.siteUrl.replace(/\/+$/, '')}/#/product/${product.id}`;
+
 /** Product-specific enquiry message. Always includes the product ID. */
 export function getProductEnquiryMessage(product) {
   const category = getCategoryBySlug(product.category)?.name ?? product.category;
@@ -20,7 +24,7 @@ export function getProductEnquiryMessage(product) {
     `Category: ${category}`,
   ];
   if (siteConfig.siteUrl) {
-    lines.push(`Link: ${siteConfig.siteUrl.replace(/\/$/, '')}/product/${product.id}`);
+    lines.push(`Link: ${getProductPageUrl(product)}`);
   }
   lines.push('', 'Could you please share more details about this product?');
   return lines.join('\n');

@@ -28,6 +28,12 @@ npm run build      # production build in dist/
 - **Add a category:** add an entry to `categories.js` with a new `slug` and `idPrefix`, then add products with that `category`. No UI changes are needed.
 - **Add or upgrade photos:** put the originals in the raw image folders and run `npm run images`. Web-sized copies (`.webp` at 1400px plus a `-sm` 640px version) are written to `public/images/<category>/`. Originals are never modified. To use a different source folder, set `RAW_IMAGES_DIR`.
 
-## Deploying
+## Deploying (GitHub Pages)
 
-Any static host works. `public/_redirects` (Netlify) and `vercel.json` route deep links such as `/product/BGL001` to the app.
+Live URL: https://indujakumar11.github.io/threadcuddlesbyhs/
+
+- Every push to `main` builds and deploys automatically via `.github/workflows/deploy.yml`. You can also run it by hand from the **Actions** tab.
+- The site uses `HashRouter`, so page URLs look like `/#/product/BGL001`. These work on refresh and when shared, with no server setup.
+- Production builds use the base path `/threadcuddlesbyhs/` (set in `vite.config.js`). Reference files in `public/` from JS with `asset('images/...')` from `src/utils/asset.js`, never with a hard-coded leading `/`.
+- `npm run build && npm run preview` serves the build at `http://localhost:4173/threadcuddlesbyhs/`, exactly as on GitHub Pages.
+- **Custom domain:** build with `BASE_PATH=/` (set it in the workflow's Build step) and update `siteUrl` in `siteConfig.js`.

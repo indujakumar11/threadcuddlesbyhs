@@ -12,8 +12,9 @@
  *  - Set `featured: true` to show the product on the home page.
  */
 import { categories } from './categories.js';
+import { asset } from '../utils/asset.js';
 
-const img = (category, file) => `/images/${category}/${file}.webp`;
+const img = (category, file) => asset(`images/${category}/${file}.webp`);
 
 export const products = [
   // ───────────── Bangles ─────────────

@@ -2,7 +2,9 @@
  * Image helpers. Every product image has a large version (/x.webp) and a
  * small card version (/x-sm.webp) produced by `npm run images`.
  */
-export const PLACEHOLDER_IMAGE = '/images/placeholder.svg';
+import { asset } from './asset.js';
+
+export const PLACEHOLDER_IMAGE = asset('images/placeholder.svg');
 
 export const smallImage = (src) => (src ? src.replace(/\.webp$/, '-sm.webp') : PLACEHOLDER_IMAGE);
 

@@ -13,7 +13,19 @@ export default function App() {
   const { pathname } = useLocation();
   return (
     <>
-      <a href="#main" className="skip-link">
+      {/* Focuses <main> directly — a plain "#main" href would be treated as a route by HashRouter. */}
+      <a
+        href="#main"
+        className="skip-link"
+        onClick={(e) => {
+          e.preventDefault();
+          const main = document.getElementById('main');
+          if (main) {
+            main.setAttribute('tabindex', '-1');
+            main.focus();
+          }
+        }}
+      >
         Skip to content
       </a>
       <ScrollManager />

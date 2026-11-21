@@ -1,3 +1,5 @@
+import { asset } from '../utils/asset.js';
+
 /**
  * Central business configuration.
  * Update these values in ONE place — every component reads from here.
@@ -14,9 +16,10 @@ export const siteConfig = {
   // Full Instagram profile URL. Leave empty to hide Instagram links.
   instagramUrl: '',
 
-  // Public website URL (e.g. "https://threadcuddlesbyhs.com"). When set, product
-  // enquiry messages include a direct link to the product page.
-  siteUrl: '',
+  // Public website URL, without a trailing slash. When set, product enquiry
+  // messages include a direct link to the product page.
+  // Update this if you move to a custom domain.
+  siteUrl: 'https://indujakumar11.github.io/threadcuddlesbyhs',
 
   currency: 'INR',
   locale: 'en-IN',
@@ -26,8 +29,8 @@ export const siteConfig = {
     eyebrow: 'Handcrafted with love',
     title: 'Little Details.\nBeautifully Handcrafted.',
     text: 'Discover the beauty of handcrafted silk thread bangles and accessories, thoughtfully created to add elegance to every occasion.',
-    image: '/images/bangles/img_6566.webp',
-    secondaryImage: '/images/hair-accessories/img_6614.webp',
+    image: asset('images/bangles/img_6566.webp'),
+    secondaryImage: asset('images/hair-accessories/img_6614.webp'),
   },
   about: {
     eyebrow: 'Our Story',
@@ -36,7 +39,7 @@ export const siteConfig = {
       'At ThreadCuddlesByHS, we bring creativity and craftsmanship together to create beautiful handmade accessories that make your special moments even more memorable.',
       'Each piece is wrapped, stitched and finished by hand — thread by thread, stone by stone — so no two are ever quite the same. Colours and sizes can be customised to match your outfit and occasion.',
     ],
-    image: '/images/bangles/img_6606.webp',
+    image: asset('images/bangles/img_6606.webp'),
   },
   contact: {
     title: 'Found something you love?',
