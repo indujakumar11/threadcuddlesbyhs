@@ -1,0 +1,31 @@
+.announce {
+  background: var(--peach);
+  border-bottom: 1px solid var(--border);
+  color: var(--text);
+}
+.announce__track {
+  position: relative;
+  height: 34px;
+  overflow: hidden;
+}
+.announce__msg {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+  white-space: nowrap;
+}
+.announce__msg.is-active { opacity: 1; transform: none; }
+.announce__dot { color: var(--gold); font-size: 0.6rem; }
+@media (max-width: 480px) {
+  .announce__msg { font-size: 0.6rem; letter-spacing: 0.16em; gap: 0.5rem; }
+}

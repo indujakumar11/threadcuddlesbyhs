@@ -9,7 +9,9 @@
  *    image is the cover. A smaller "-sm" version is used automatically on cards.
  *  - `price` is a number in INR or `null` (price is then hidden).
  *  - Set `available: false` to show "Currently unavailable".
- *  - Set `featured: true` to show the product on the home page.
+ *  - Set `featured: true` to show the product in "Featured Designs" on the home page.
+ *  - Set `newArrival: true` / `popular: true` to show it in "New Arrivals" /
+ *    "Popular Collections" (both optional).
  */
 import { categories } from './categories.js';
 import { asset } from '../utils/asset.js';
@@ -29,6 +31,7 @@ export const products = [
     features: ['Handcrafted', 'Premium silk thread', 'Stackable set', 'Customisable size'],
     available: true,
     featured: false,
+    popular: true,
   },
   {
     id: 'BGL002',
@@ -58,6 +61,7 @@ export const products = [
     features: ['Handcrafted', 'Premium silk thread', 'Includes kada', 'Customisable colours'],
     available: true,
     featured: false,
+    popular: true,
   },
   {
     id: 'BGL004',
@@ -70,6 +74,7 @@ export const products = [
     features: ['Handcrafted', 'Full wrist set', 'Stone accents', 'Customisable size'],
     available: true,
     featured: false,
+    popular: true,
   },
   {
     id: 'BGL005',
@@ -94,6 +99,7 @@ export const products = [
     features: ['Handcrafted', 'Broad kada', 'Kundan stones', 'Mix & match'],
     available: true,
     featured: true,
+    popular: true,
   },
   {
     id: 'BGL007',
@@ -106,6 +112,7 @@ export const products = [
     features: ['Handcrafted', 'Kemp stones', 'Broad design', 'Festive wear'],
     available: true,
     featured: false,
+    popular: true,
   },
   {
     id: 'BGL008',
@@ -147,6 +154,7 @@ export const products = [
     features: ['Handcrafted', 'Premium silk thread', 'Lightweight', 'Customisable size'],
     available: true,
     featured: false,
+    newArrival: true,
   },
   {
     id: 'BGL011',
@@ -159,6 +167,7 @@ export const products = [
     features: ['Handcrafted', 'Premium silk thread', 'Stackable set'],
     available: true,
     featured: false,
+    newArrival: true,
   },
   {
     id: 'BGL012',
@@ -183,6 +192,7 @@ export const products = [
     features: ['Handcrafted', 'Premium silk thread', 'Everyday wear'],
     available: true,
     featured: false,
+    newArrival: true,
   },
   {
     id: 'BGL014',
@@ -195,6 +205,7 @@ export const products = [
     features: ['Handcrafted', 'Premium silk thread', 'Stackable set'],
     available: true,
     featured: false,
+    newArrival: true,
   },
   {
     id: 'BGL015',
@@ -207,6 +218,7 @@ export const products = [
     features: ['Handcrafted', 'Beaded borders', 'Lightweight'],
     available: true,
     featured: false,
+    newArrival: true,
   },
   {
     id: 'BGL016',
@@ -219,6 +231,8 @@ export const products = [
     features: ['Handcrafted', 'Multiple colours', 'Mix & match', 'Customisable'],
     available: true,
     featured: false,
+    newArrival: true,
+    popular: true,
   },
 
   // ───────────── Hair Accessories ─────────────
@@ -254,6 +268,8 @@ export const products = [
     features: ['Handcrafted', 'Pearl chains', 'Ruby-red drops', 'Secure pin fitting'],
     available: true,
     featured: false,
+    newArrival: true,
+    popular: true,
   },
 
   // ───────────── Saree Pins ─────────────
@@ -289,6 +305,8 @@ export const products = [
     features: ['Handcrafted', 'Sapphire-tone stone', 'Kundan setting', 'Pearl drops'],
     available: true,
     featured: false,
+    newArrival: true,
+    popular: true,
   },
 ];
 
@@ -299,6 +317,10 @@ export const getProductById = (id) =>
 export const getProductsByCategory = (slug) => products.filter((p) => p.category === slug);
 
 export const getFeaturedProducts = () => products.filter((p) => p.featured);
+
+export const getNewArrivals = () => products.filter((p) => p.newArrival);
+
+export const getPopularProducts = () => products.filter((p) => p.popular);
 
 export const getRelatedProducts = (product, limit = 4) =>
   products.filter((p) => p.category === product.category && p.id !== product.id).slice(0, limit);

@@ -1,7 +1,10 @@
 /* ───────────── Design tokens ───────────── */
 :root {
   --white: #ffffff;
+  --ivory: #fffbf6;
   --peach: #fff1eb;
+  --blush: #fbeae3;
+  --beige: #f7efe8;
   --accent: #f3c5b5;
   --gold: #c5a16a;
   --gold-deep: #a9864f;
@@ -16,7 +19,7 @@
   --radius: 4px;
   --shadow-soft: 0 24px 50px -28px rgba(73, 53, 47, 0.35);
 
-  --header-h: 84px;
+  --header-h: 127px; /* two-row sticky header on desktop */
   --gutter: clamp(1rem, 4vw, 3rem);
   --container: 1280px;
   --section-y: clamp(4.5rem, 10vw, 8.5rem);
@@ -217,22 +220,3 @@ h1, h2, h3, h4 {
   }
   .reveal { opacity: 1; transform: none; }
 }
-
-/* ───────────── Floating WhatsApp (mobile) ───────────── */
-.floating-wa {
-  position: fixed;
-  right: 1rem;
-  bottom: calc(1rem + env(safe-area-inset-bottom));
-  z-index: 40;
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-  display: none;
-  place-items: center;
-  background: var(--text);
-  color: var(--white);
-  box-shadow: 0 16px 30px -12px rgba(73, 53, 47, 0.55);
-  transition: transform 0.3s var(--ease);
-}
-.floating-wa:active { transform: scale(0.95); }
-@media (max-width: 760px) { .floating-wa { display: grid; } }

@@ -1,121 +1,148 @@
+import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Sparkles, Palette, HandHeart, Search, MessageCircle, Gift } from 'lucide-react';
+import { ArrowRight, HandHeart, Palette, Sparkles, MessageCircle } from 'lucide-react';
 import Reveal from '../components/Reveal.jsx';
 import SectionHeading from '../components/SectionHeading.jsx';
 import CategoryCard from '../components/CategoryCard.jsx';
-import ProductCard from '../components/ProductCard.jsx';
+import ProductCarousel from '../components/ProductCarousel.jsx';
 import WhatsAppButton from '../components/WhatsAppButton.jsx';
 import { categories } from '../data/categories.js';
-import { products, getFeaturedProducts, getProductsByCategory } from '../data/products.js';
+import { products, getFeaturedProducts, getNewArrivals, getPopularProducts, getProductsByCategory } from '../data/products.js';
 import { siteConfig } from '../config/siteConfig.js';
 import { smallImage, srcSet, handleImageError } from '../utils/images.js';
 import { useSeo } from '../hooks/useSeo.js';
 import './Home.css';
 
-const VALUES = [
-  { icon: HandHeart, title: 'Made by hand', text: 'Every piece is wrapped and finished by hand.' },
-  { icon: Sparkles, title: 'Premium silk thread', text: 'Lustrous threads, stones and pearls.' },
-  { icon: Palette, title: 'Custom colours', text: 'Matched to your outfit and occasion.' },
-  { icon: Gift, title: 'Thoughtful gifting', text: 'A keepsake for someone special.' },
-];
+const USP_ICONS = [HandHeart, Palette, Sparkles, MessageCircle];
 
-const STEPS = [
-  { icon: Search, title: 'Browse', text: 'Explore the collection and find a design you love.' },
-  { icon: Sparkles, title: 'Note the ID', text: 'Each piece has a unique ID, such as BGL002.' },
-  { icon: MessageCircle, title: 'Enquire', text: 'Tap “Enquire on WhatsApp” — the details are filled in for you.' },
-];
+function HeroSlider() {
+  const { hero } = siteConfig;
+  const slides = hero.slides ?? [];
+  const [active, setActive] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const touchX = useRef(null);
+  const [line1, line2] = hero.title.split('\n');
+
+  useEffect(() => {
+    if (paused || slides.length < 2) return;
+    if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return;
+    const t = setInterval(() => setActive((i) => (i + 1) % slides.length), 5500);
+    return () => clearInterval(t);
+  }, [paused, slides.length]);
+
+  const go = (dir) => setActive((i) => (i + dir + slides.length) % slides.length);
+
+  return (
+    <section
+      className="hero"
+      aria-roledescription="carousel"
+      aria-label="Featured creations"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+    >
+      <div className="container hero__inner">
+        <div className="hero__copy">
+          <p className="eyebrow">{hero.eyebrow}</p>
+          <h1 className="hero__title">
+            <span>{line1}</span>
+            <em>{line2}</em>
+          </h1>
+          <p className="hero__text">{hero.text}</p>
+          <div className="hero__ctas">
+            <Link to="/categories" className="btn btn--primary btn--lg">Explore Collections</Link>
+            <Link to="/shop" className="btn btn--outline btn--lg">Discover Our Creations</Link>
+          </div>
+          {slides.length > 1 && (
+            <div className="hero__dots" role="tablist" aria-label="Choose slide">
+              {slides.map((s, i) => (
+                <button
+                  key={s.productId}
+                  type="button"
+                  role="tab"
+                  aria-selected={i === active}
+                  aria-label={`Show ${s.label}`}
+                  className={`hero__dot ${i === active ? 'is-active' : ''}`}
+                  onClick={() => setActive(i)}
+                />
+              ))}
+            </div>
+          )}
+        </div>
+
+        <div
+          className="hero__stage"
+          onTouchStart={(e) => (touchX.current = e.touches[0].clientX)}
+          onTouchEnd={(e) => {
+            if (touchX.current === null) return;
+            const dx = e.changedTouches[0].clientX - touchX.current;
+            if (Math.abs(dx) > 40) go(dx < 0 ? 1 : -1);
+            touchX.current = null;
+          }}
+        >
+          {slides.map((s, i) => (
+            <figure key={s.productId} className={`hero__slide ${i === active ? 'is-active' : ''}`} aria-hidden={i !== active}>
+              <img
+                src={s.image}
+                srcSet={srcSet(s.image)}
+                sizes="(max-width: 900px) 92vw, 46vw"
+                alt={s.label}
+                loading={i === 0 ? 'eager' : 'lazy'}
+                fetchpriority={i === 0 ? 'high' : undefined}
+                onError={handleImageError}
+              />
+              <figcaption>
+                <Link to={`/product/${s.productId}`} tabIndex={i === active ? 0 : -1}>
+                  <small>{s.productId}</small>
+                  {s.label}
+                  <ArrowRight size={14} strokeWidth={1.5} />
+                </Link>
+              </figcaption>
+            </figure>
+          ))}
+          <span className="hero__frame" aria-hidden="true" />
+        </div>
+      </div>
+    </section>
+  );
+}
 
 export default function Home() {
-  const featured = getFeaturedProducts().slice(0, 8);
-  const { hero, about, contact } = siteConfig;
-  const [titleLine1, titleLine2] = hero.title.split('\n');
+  const { about, contact, usps = [] } = siteConfig;
 
   useSeo({
     description:
-      'Handmade silk thread bangles, hair accessories and saree pins by ThreadCuddlesByHS. Browse the collection and enquire on WhatsApp.',
+      'Handmade silk thread bangles, kundan bangles, brooches, saree pins and hair accessories by Thread Cuddles by HS. Browse the collection and enquire on WhatsApp.',
   });
 
   return (
     <main id="main" className="page home">
-      {/* ── Hero ── */}
-      <section className="hero">
-        <div className="hero__panel" aria-hidden="true" />
-        <div className="container hero__inner">
-          <div className="hero__copy">
-            <p className="eyebrow hero__eyebrow">{hero.eyebrow}</p>
-            <h1 className="hero__title">
-              <span>{titleLine1}</span>
-              <em>{titleLine2}</em>
-            </h1>
-            <p className="hero__text">{hero.text}</p>
-            <div className="hero__ctas">
-              <Link to="/shop" className="btn btn--primary btn--lg">
-                Explore Collection
-              </Link>
-              <WhatsAppButton variant="outline" size="lg" />
-            </div>
-            <ul className="hero__trust">
-              <li>Handmade</li>
-              <li>Customisable</li>
-              <li>Made to order</li>
-            </ul>
-          </div>
+      <HeroSlider />
 
-          <div className="hero__visual">
-            <figure className="hero__main">
-              <img
-                src={hero.image}
-                srcSet={srcSet(hero.image)}
-                sizes="(max-width: 900px) 90vw, 42vw"
-                alt="Handmade kundan kadas with gold floral work and magenta stones"
-                fetchpriority="high"
-                onError={handleImageError}
-              />
-            </figure>
-            <Link to="/product/HAR001" className="hero__float">
-              <img src={smallImage(hero.secondaryImage)} alt="Pearl Lotus Hair Brooch" loading="lazy" onError={handleImageError} />
-              <span>
-                <small>Featured · HAR001</small>
-                Pearl Lotus Hair Brooch
-              </span>
-            </Link>
-            <span className="hero__badge" aria-hidden="true">
-              <svg viewBox="0 0 120 120">
-                <defs>
-                  <path id="badge-circle" d="M60,60 m-44,0 a44,44 0 1,1 88,0 a44,44 0 1,1 -88,0" />
-                </defs>
-                <text>
-                  <textPath href="#badge-circle">handcrafted · thread by thread ·</textPath>
-                </text>
-              </svg>
-              <i>hs</i>
-            </span>
-          </div>
-        </div>
+      {/* ── Brand promises ── */}
+      <section className="usps" aria-label="Why Thread Cuddles by HS">
+        <ul className="container usps__grid">
+          {usps.map((u, i) => {
+            const Icon = USP_ICONS[i % USP_ICONS.length];
+            return (
+              <li key={u.title} className="usps__item">
+                <Icon size={22} strokeWidth={1.2} className="usps__icon" />
+                <div>
+                  <h3>{u.title}</h3>
+                  <p>{u.text}</p>
+                </div>
+              </li>
+            );
+          })}
+        </ul>
       </section>
 
-      {/* ── Values strip ── */}
-      <section className="values" aria-label="Why ThreadCuddlesByHS">
-        <div className="container values__grid">
-          {VALUES.map(({ icon: Icon, title, text }, i) => (
-            <Reveal key={title} className="values__item" delay={i * 80}>
-              <Icon size={22} strokeWidth={1.2} className="values__icon" />
-              <div>
-                <h3>{title}</h3>
-                <p>{text}</p>
-              </div>
-            </Reveal>
-          ))}
-        </div>
-      </section>
-
-      {/* ── Categories ── */}
+      {/* ── Shop by category ── */}
       <section className="section" id="categories">
         <div className="container">
-          <SectionHeading eyebrow="Our Collections" title={<>Shop by <em>category</em></>} />
+          <SectionHeading eyebrow="Shop by Category" title={<>Find your <em>favourite</em></>} />
           <div className="category-grid">
             {categories.map((c, i) => (
-              <Reveal key={c.slug} delay={i * 120}>
+              <Reveal key={c.slug} delay={i * 110}>
                 <CategoryCard category={c} index={i} count={getProductsByCategory(c.slug).length} />
               </Reveal>
             ))}
@@ -123,40 +150,76 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── Featured ── */}
-      <section className="section section--peach featured">
+      <ProductCarousel
+        eyebrow="Just In"
+        title={<>New <em>Arrivals</em></>}
+        products={getNewArrivals()}
+        viewAllTo="/shop"
+        badge="New"
+        tone="peach"
+      />
+
+      <ProductCarousel
+        eyebrow="Handpicked"
+        title={<>Featured <em>Designs</em></>}
+        products={getFeaturedProducts()}
+        viewAllTo="/shop"
+      />
+
+      {/* ── Collection showcase (alternating) ── */}
+      <section className="section section--peach showcase" aria-label="Our collections">
         <div className="container">
-          <div className="featured__head">
-            <SectionHeading
-              align="left"
-              eyebrow="Featured Pieces"
-              title={<>Loved, <em>handpicked</em></>}
-              text="A few favourites from the studio — each one made by hand and ready to be customised for you."
-            />
-            <Reveal className="featured__link">
-              <Link to="/shop" className="text-link">
-                View all {products.length} designs <ArrowRight size={14} strokeWidth={1.5} />
-              </Link>
-            </Reveal>
-          </div>
-          <div className="product-grid">
-            {featured.map((p, i) => (
-              <Reveal key={p.id} delay={(i % 4) * 90}>
-                <ProductCard product={p} />
-              </Reveal>
-            ))}
-          </div>
+          <SectionHeading eyebrow="Our Collections" title={<>Made by hand, <em>made for you</em></>} />
+          {categories.map((c, i) => {
+            const items = getProductsByCategory(c.slug).slice(0, 3);
+            const img = c.showcaseImage ?? c.image;
+            return (
+              <article key={c.slug} className={`showcase__row ${i % 2 ? 'showcase__row--flip' : ''}`}>
+                <Reveal className="showcase__media">
+                  <Link to={`/shop?category=${c.slug}`} tabIndex={-1} aria-hidden="true">
+                    <img src={smallImage(img)} srcSet={srcSet(img)} sizes="(max-width: 900px) 92vw, 50vw" alt="" loading="lazy" onError={handleImageError} />
+                  </Link>
+                </Reveal>
+                <Reveal className="showcase__copy" delay={120}>
+                  <p className="eyebrow">{c.tagline}</p>
+                  <h3 className="showcase__title">{c.name}</h3>
+                  <p className="showcase__text">{c.description}</p>
+                  <ul className="showcase__thumbs">
+                    {items.map((p) => (
+                      <li key={p.id}>
+                        <Link to={`/product/${p.id}`} title={`${p.name} (${p.id})`}>
+                          <img src={smallImage(p.images[0])} alt={p.name} loading="lazy" onError={handleImageError} />
+                          <span>{p.id}</span>
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                  <Link to={`/shop?category=${c.slug}`} className="btn btn--outline">
+                    Explore {c.shortName ?? c.name} <ArrowRight size={15} strokeWidth={1.5} />
+                  </Link>
+                </Reveal>
+              </article>
+            );
+          })}
         </div>
       </section>
 
-      {/* ── About ── */}
+      <ProductCarousel
+        eyebrow="Customer Favourites"
+        title={<>Popular <em>Collections</em></>}
+        products={getPopularProducts()}
+        viewAllTo="/shop"
+        viewAllLabel={`View all ${products.length} designs`}
+      />
+
+      {/* ── Brand introduction ── */}
       <section className="section about" id="about">
         <div className="container about__inner">
           <Reveal className="about__media">
             <img
               src={smallImage(about.image)}
               srcSet={srcSet(about.image)}
-              sizes="(max-width: 900px) 92vw, 45vw"
+              sizes="(max-width: 900px) 92vw, 42vw"
               alt="A colourful assortment of handmade silk thread bangle sets"
               loading="lazy"
               onError={handleImageError}
@@ -171,45 +234,19 @@ export default function Home() {
               </Reveal>
             ))}
             <Reveal className="about__stats" delay={200}>
-              <div>
-                <strong>100%</strong>
-                <span>Handmade</span>
-              </div>
-              <div>
-                <strong>{products.length}+</strong>
-                <span>Designs</span>
-              </div>
-              <div>
-                <strong>{categories.length}</strong>
-                <span>Collections</span>
-              </div>
+              <div><strong>100%</strong><span>Handmade</span></div>
+              <div><strong>{products.length}+</strong><span>Designs</span></div>
+              <div><strong>{categories.length}</strong><span>Collections</span></div>
             </Reveal>
           </div>
         </div>
       </section>
 
-      {/* ── How to order ── */}
-      <section className="section section--tight steps" aria-labelledby="steps-title">
-        <div className="container">
-          <SectionHeading eyebrow="Ordering is simple" title={<span id="steps-title">How to <em>order</em></span>} />
-          <ol className="steps__grid">
-            {STEPS.map(({ icon: Icon, title, text }, i) => (
-              <Reveal as="li" key={title} className="steps__item" delay={i * 120}>
-                <span className="steps__num">0{i + 1}</span>
-                <Icon size={24} strokeWidth={1.2} className="steps__icon" />
-                <h3>{title}</h3>
-                <p>{text}</p>
-              </Reveal>
-            ))}
-          </ol>
-        </div>
-      </section>
-
-      {/* ── Contact CTA ── */}
+      {/* ── Contact / WhatsApp ── */}
       <section className="contact" id="contact">
         <div className="container">
           <Reveal className="contact__card">
-            <p className="eyebrow">Enquiries & Orders</p>
+            <p className="eyebrow">Enquiries & Custom Orders</p>
             <h2 className="contact__title">{contact.title}</h2>
             <p className="contact__text">{contact.text}</p>
             <WhatsAppButton label="Enquire Now" size="lg" />

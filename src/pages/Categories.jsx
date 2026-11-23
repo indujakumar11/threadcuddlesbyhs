@@ -11,7 +11,7 @@ import './Categories.css';
 export default function Categories() {
   useSeo({
     title: 'Categories',
-    description: 'Explore ThreadCuddlesByHS collections — silk thread bangles, hair accessories and saree pins.',
+    description: 'Explore Thread Cuddles by HS collections — silk thread bangles, hair accessories and saree pins.',
   });
 
   return (

@@ -1,0 +1,57 @@
+.carousel__head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-bottom: clamp(1.75rem, 3vw, 2.5rem);
+}
+.carousel__title {
+  margin-top: 0.75rem;
+  font-size: clamp(2rem, 3.8vw, 3rem);
+  font-weight: 400;
+}
+.carousel__title em { font-style: italic; color: var(--gold-deep); }
+.carousel__controls { display: flex; align-items: center; gap: 0.5rem; flex-shrink: 0; }
+.carousel__all { margin-right: 0.75rem; }
+.carousel__arrow {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--white);
+  display: grid;
+  place-items: center;
+  color: var(--text);
+  transition: border-color 0.3s var(--ease), background-color 0.3s var(--ease), opacity 0.3s;
+}
+.carousel__arrow:hover:not(:disabled) { border-color: var(--gold); }
+.carousel__arrow:disabled { opacity: 0.35; cursor: default; }
+
+/* the track bleeds to the screen edge but starts aligned with the container */
+.carousel__viewport { overflow: hidden; }
+.carousel__track {
+  --peek: max(var(--gutter), calc((100vw - var(--container)) / 2 + var(--gutter)));
+  display: flex;
+  gap: clamp(1rem, 2vw, 1.75rem);
+  list-style: none;
+  margin: 0;
+  padding: 0 var(--peek) 0.5rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: var(--peek);
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+.carousel__track::-webkit-scrollbar { display: none; }
+.carousel__item {
+  flex: 0 0 clamp(220px, 22vw, 290px);
+  scroll-snap-align: start;
+}
+.section--peach .product-card__media { background: var(--white); }
+
+@media (max-width: 760px) {
+  .carousel__head { align-items: flex-start; flex-direction: column; gap: 0.75rem; }
+  .carousel__controls { width: 100%; justify-content: space-between; }
+  .carousel__arrow { display: none; }
+  .carousel__item { flex-basis: 64vw; }
+}

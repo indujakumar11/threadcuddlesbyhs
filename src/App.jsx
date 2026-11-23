@@ -2,7 +2,8 @@ import { Routes, Route, useLocation } from 'react-router-dom';
 import Header from './components/Header.jsx';
 import Footer from './components/Footer.jsx';
 import ScrollManager from './components/ScrollManager.jsx';
-import FloatingWhatsApp from './components/FloatingWhatsApp.jsx';
+import AnnouncementBar from './components/AnnouncementBar.jsx';
+import MobileTabBar from './components/MobileTabBar.jsx';
 import Home from './pages/Home.jsx';
 import Shop from './pages/Shop.jsx';
 import Categories from './pages/Categories.jsx';
@@ -29,6 +30,7 @@ export default function App() {
         Skip to content
       </a>
       <ScrollManager />
+      <AnnouncementBar />
       <Header />
       {/* Keying by pathname replays the page fade-in on navigation. */}
       <Routes key={pathname}>
@@ -39,7 +41,7 @@ export default function App() {
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />
-      <FloatingWhatsApp />
+      <MobileTabBar />
     </>
   );
 }

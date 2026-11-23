@@ -1,11 +1,18 @@
 import { Link } from 'react-router-dom';
 import Logo from './Logo.jsx';
-import { NAV_LINKS } from './Header.jsx';
 import { WhatsAppIcon, InstagramIcon } from './BrandIcons.jsx';
 import { categories } from '../data/categories.js';
 import { siteConfig } from '../config/siteConfig.js';
 import { getGeneralWhatsAppUrl } from '../utils/whatsapp.js';
 import './Footer.css';
+
+const FOOTER_LINKS = [
+  { label: 'Home', to: '/' },
+  { label: 'Shop All', to: '/shop' },
+  { label: 'All Collections', to: '/categories' },
+  { label: 'About Us', to: '/#about' },
+  { label: 'Contact', to: '/#contact' },
+];
 
 export default function Footer() {
   const year = new Date().getFullYear();
@@ -17,15 +24,15 @@ export default function Footer() {
             <Logo size="lg" />
           </Link>
           <p className="footer__desc">
-            Handmade silk thread bangles, hair accessories and saree pins — crafted thread by thread to add a
-            little elegance to every occasion.
+            Handmade silk thread bangles, kundan bangles, brooches, saree pins and hair accessories — crafted
+            thread by thread to add a little elegance to every occasion.
           </p>
         </div>
 
         <nav className="footer__col" aria-label="Footer">
           <h3 className="footer__heading">Explore</h3>
           <ul>
-            {NAV_LINKS.map((l) => (
+            {FOOTER_LINKS.map((l) => (
               <li key={l.label}>
                 <Link to={l.to}>{l.label}</Link>
               </li>
@@ -66,7 +73,7 @@ export default function Footer() {
 
       <div className="container footer__bottom">
         <p>
-          © {year} {siteConfig.brandName}. All rights reserved.
+          © {year} {siteConfig.displayName}. All rights reserved.
         </p>
         <p className="footer__made">Handmade with love in India</p>
       </div>

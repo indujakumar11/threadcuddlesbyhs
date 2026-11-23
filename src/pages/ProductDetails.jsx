@@ -2,9 +2,8 @@ import { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { ArrowLeft, Check, Copy } from 'lucide-react';
 import ProductGallery from '../components/ProductGallery.jsx';
-import ProductCard from '../components/ProductCard.jsx';
+import ProductCarousel from '../components/ProductCarousel.jsx';
 import WhatsAppButton from '../components/WhatsAppButton.jsx';
-import Reveal from '../components/Reveal.jsx';
 import NotFound from './NotFound.jsx';
 import { getProductById, getRelatedProducts } from '../data/products.js';
 import { getCategoryBySlug } from '../data/categories.js';
@@ -34,7 +33,7 @@ export default function ProductDetails() {
 
   const category = getCategoryBySlug(product.category);
   const price = formatPrice(product.price);
-  const related = getRelatedProducts(product, 4);
+  const related = getRelatedProducts(product, 8);
 
   const copyId = async () => {
     try {
@@ -120,25 +119,13 @@ export default function ProductDetails() {
         </div>
       </div>
 
-      {related.length > 0 && (
-        <section className="section section--peach pdp__related" aria-labelledby="related-title">
-          <div className="container">
-            <Reveal className="pdp__related-head">
-              <p className="eyebrow">More from {category?.name}</p>
-              <h2 id="related-title">
-                You may also <em>love</em>
-              </h2>
-            </Reveal>
-            <div className="product-grid">
-              {related.map((p, i) => (
-                <Reveal key={p.id} delay={i * 90}>
-                  <ProductCard product={p} />
-                </Reveal>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
+      <ProductCarousel
+        eyebrow={`More from ${category?.name ?? 'the collection'}`}
+        title={<>You may also <em>love</em></>}
+        products={related}
+        viewAllTo={category ? `/shop?category=${category.slug}` : '/shop'}
+        tone="peach"
+      />
 
       {/* Mobile sticky enquiry bar */}
       <div className="pdp__sticky">

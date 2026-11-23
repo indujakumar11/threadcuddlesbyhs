@@ -31,7 +31,7 @@ export default function Shop() {
 
   useSeo({
     title: activeCategory ? activeCategory.name : 'Shop the Collection',
-    description: activeCategory?.description ?? 'Browse every handmade bangle, hair accessory and saree pin by ThreadCuddlesByHS.',
+    description: activeCategory?.description ?? 'Browse every handmade bangle, hair accessory and saree pin by Thread Cuddles by HS.',
   });
 
   const updateParam = (key, value) => {
