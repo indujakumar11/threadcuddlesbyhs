@@ -21,7 +21,7 @@ export default function Footer() {
       <div className="container footer__grid">
         <div className="footer__brand">
           <Link to="/" aria-label="threadcuddlesbyhs — home">
-            <Logo size="lg" />
+            <Logo variant="full" />
           </Link>
           <p className="footer__desc">
             Handmade silk thread bangles, kundan bangles, brooches, saree pins and hair accessories — crafted

@@ -1,19 +1,23 @@
 import { siteConfig } from '../config/siteConfig.js';
+import { asset } from '../utils/asset.js';
 import './Logo.css';
 
-/** Text logo with a minimal two-bangle mark. */
-export default function Logo({ size = 'md', className = '' }) {
+/**
+ * Brand logo (gold HS monogram + "threadcuddlesbyhs" wordmark).
+ *  - default: horizontal lockup for the header
+ *  - variant="full": the stacked logo with the tagline (footer)
+ * Source artwork: brand/logo-original.png
+ */
+export default function Logo({ variant = 'header', className = '' }) {
+  const full = variant === 'full';
   return (
-    <span className={`logo logo--${size} ${className}`} aria-label={siteConfig.brandName}>
-      <svg className="logo__mark" viewBox="0 0 48 40" aria-hidden="true">
-        <circle cx="19" cy="23" r="12" fill="none" stroke="var(--gold)" strokeWidth="1.6" />
-        <circle cx="29" cy="23" r="12" fill="none" stroke="currentColor" strokeWidth="1.6" />
-        <path d="M24 3.5c1.7 2.4 1.7 4.4 0 6.8-1.7-2.4-1.7-4.4 0-6.8z" fill="var(--gold)" />
-      </svg>
-      <span className="logo__text" aria-hidden="true">
-        <span className="logo__word">threadcuddles</span>
-        <span className="logo__by">by hs</span>
-      </span>
-    </span>
+    <img
+      className={`logo logo--${variant} ${className}`}
+      src={asset(full ? 'images/brand/logo-full.webp' : 'images/brand/logo-header.webp')}
+      width={full ? 760 : 876}
+      height={full ? 525 : 150}
+      alt={siteConfig.brandName}
+      decoding="async"
+    />
   );
 }

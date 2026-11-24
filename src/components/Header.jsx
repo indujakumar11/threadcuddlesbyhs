@@ -105,7 +105,7 @@ export default function Header() {
           <button type="button" className="header__icon header__search-mobile" onClick={() => setSearchOpen(true)} aria-label="Search products">
             <Search size={20} strokeWidth={1.5} />
           </button>
-          <WhatsAppButton variant="outline" size="sm" label="Enquire" className="header__wa" />
+          <WhatsAppButton variant="gold" size="sm" label="Enquire" className="header__wa" />
         </div>
       </div>
 
