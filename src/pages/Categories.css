@@ -20,8 +20,8 @@
 }
 .cat-row__media img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease); }
 .cat-row__media a:hover img { transform: scale(1.05); }
-.cat-row__num { font-family: var(--font-serif); font-style: italic; font-size: 1.2rem; color: var(--gold); }
-.cat-row h2 { margin-top: 0.5rem; font-size: clamp(2.4rem, 5vw, 4rem); font-weight: 400; }
+.cat-row__num { font-family: var(--font-heading); font-weight: 600; font-size: 1rem; color: var(--gold); }
+.cat-row h2 { margin-top: 0.5rem; font-size: clamp(1.8rem, 3.4vw, 2.6rem); font-weight: 600; }
 .cat-row__desc { margin-top: 1rem; color: var(--text-muted); max-width: 42ch; font-size: 1.02rem; }
 .cat-row__count {
   margin-top: 1.25rem;

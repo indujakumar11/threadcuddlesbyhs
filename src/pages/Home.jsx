@@ -213,7 +213,7 @@ export default function Home() {
       />
 
       {/* ── Brand introduction ── */}
-      <section className="section about" id="about">
+      <section className="section section--peach about" id="about">
         <div className="container about__inner">
           <Reveal className="about__media">
             <img

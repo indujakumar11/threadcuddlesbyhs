@@ -45,7 +45,7 @@
   color: var(--text-muted);
   letter-spacing: 0.04em;
 }
-.footer__made { font-family: var(--font-serif); font-style: italic; font-size: 0.95rem; }
+.footer__made { font-family: var(--font-display); font-style: italic; font-size: 0.95rem; }
 
 @media (max-width: 900px) {
   .footer__grid { grid-template-columns: 1fr 1fr; }

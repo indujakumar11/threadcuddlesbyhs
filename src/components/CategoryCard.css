@@ -8,7 +8,7 @@
   position: relative;
   aspect-ratio: 3 / 4;
   overflow: hidden;
-  border-radius: var(--radius);
+  border-radius: var(--radius-card);
   background: var(--peach);
 }
 .category-card__media img {
@@ -30,9 +30,9 @@
   top: 1rem;
   left: 1rem;
   z-index: 1;
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-size: 1rem;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 0.9rem;
   color: var(--text);
   background: rgba(255, 255, 255, 0.9);
   width: 2.6rem;
@@ -48,7 +48,7 @@
   justify-content: space-between;
   gap: 1rem;
 }
-.category-card__name { font-size: clamp(1.6rem, 2.4vw, 2rem); font-weight: 500; }
+.category-card__name { font-size: clamp(1.2rem, 1.8vw, 1.45rem); font-weight: 600; }
 .category-card__count {
   font-size: 0.7rem;
   letter-spacing: 0.18em;

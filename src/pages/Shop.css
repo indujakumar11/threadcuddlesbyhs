@@ -84,7 +84,7 @@
   background: var(--peach);
   border-radius: var(--radius);
 }
-.shop__empty h2 { font-size: clamp(1.8rem, 4vw, 2.6rem); font-style: italic; font-weight: 400; }
+.shop__empty h2 { font-size: clamp(1.4rem, 3vw, 1.9rem); font-weight: 600; }
 .shop__empty p { max-width: 46ch; margin: 0.8rem auto 1.75rem; color: var(--text-muted); }
 .shop__empty-actions { display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; }
 

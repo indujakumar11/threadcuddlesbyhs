@@ -7,10 +7,10 @@
 }
 .carousel__title {
   margin-top: 0.75rem;
-  font-size: clamp(2rem, 3.8vw, 3rem);
-  font-weight: 400;
+  font-size: clamp(1.6rem, 2.8vw, 2.2rem);
+  font-weight: 600;
 }
-.carousel__title em { font-style: italic; color: var(--gold-deep); }
+.carousel__title em { font-style: normal; color: var(--gold-deep); }
 .carousel__controls { display: flex; align-items: center; gap: 0.5rem; flex-shrink: 0; }
 .carousel__all { margin-right: 0.75rem; }
 .carousel__arrow {
@@ -32,7 +32,7 @@
 .carousel__track {
   --peek: max(var(--gutter), calc((100vw - var(--container)) / 2 + var(--gutter)));
   display: flex;
-  gap: clamp(1rem, 2vw, 1.75rem);
+  gap: clamp(0.5rem, 1vw, 0.85rem);
   list-style: none;
   margin: 0;
   padding: 0 var(--peek) 0.5rem;

@@ -13,10 +13,11 @@
 }
 .hero__copy .eyebrow { animation: rise 0.9s var(--ease) 0.05s both; }
 .hero__title {
+  font-family: var(--font-display);
   margin-top: 1.25rem;
-  font-size: clamp(2.6rem, 5.2vw, 4.6rem);
-  line-height: 1.02;
-  font-weight: 400;
+  font-size: clamp(2.5rem, 5vw, 4.3rem);
+  line-height: 1.08;
+  font-weight: 600;
   letter-spacing: -0.015em;
 }
 .hero__title span,
@@ -84,8 +85,9 @@
   padding: 0.6rem 1.1rem;
   background: rgba(255, 255, 255, 0.94);
   border-radius: 999px;
-  font-family: var(--font-serif);
-  font-size: 1.02rem;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 0.9rem;
   white-space: nowrap;
   transition: background-color 0.3s;
 }
@@ -127,7 +129,7 @@
 }
 .usps__item:first-child { border-left: 0; padding-left: 0; }
 .usps__icon { color: var(--gold); flex-shrink: 0; margin-top: 0.15rem; }
-.usps__item h3 { font-size: 1.15rem; }
+.usps__item h3 { font-size: 1rem; }
 .usps__item p { font-size: 0.82rem; color: var(--text-muted); line-height: 1.5; }
 
 /* ───────────── Categories ───────────── */
@@ -150,12 +152,12 @@
   display: block;
   aspect-ratio: 5 / 4;
   overflow: hidden;
-  border-radius: var(--radius);
+  border-radius: var(--radius-card);
   background: var(--white);
 }
 .showcase__media img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease); }
 .showcase__media a:hover img { transform: scale(1.04); }
-.showcase__title { margin-top: 0.8rem; font-size: clamp(2.1rem, 4vw, 3.2rem); font-weight: 400; }
+.showcase__title { margin-top: 0.8rem; font-size: clamp(1.6rem, 3vw, 2.3rem); font-weight: 600; }
 .showcase__text { margin-top: 0.9rem; color: var(--text-muted); max-width: 44ch; }
 .showcase__thumbs { list-style: none; margin: 1.6rem 0 2rem; padding: 0; display: flex; gap: 0.75rem; }
 .showcase__thumbs a { display: block; width: 86px; }
@@ -192,7 +194,7 @@
   border-radius: var(--radius);
 }
 .about__copy .section-heading { margin-bottom: 1.5rem; }
-.about__lead { font-family: var(--font-serif); font-size: clamp(1.25rem, 2vw, 1.5rem); line-height: 1.5; }
+.about__lead { font-family: var(--font-heading); font-weight: 500; font-size: clamp(1.08rem, 1.6vw, 1.25rem); line-height: 1.6; }
 .about__text { margin-top: 1.1rem; color: var(--text-muted); }
 .about__stats {
   margin-top: 2.25rem;
@@ -204,9 +206,9 @@
 }
 .about__stats strong {
   display: block;
-  font-family: var(--font-serif);
-  font-weight: 500;
-  font-size: clamp(1.9rem, 3.4vw, 2.6rem);
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: clamp(1.7rem, 3vw, 2.3rem);
   line-height: 1;
   color: var(--gold-deep);
 }
@@ -220,13 +222,13 @@
 }
 
 /* ───────────── Contact ───────────── */
-.contact { padding-bottom: var(--section-y); }
+.contact { padding-block: clamp(3rem, 6vw, 5rem) var(--section-y); }
 .contact__card {
   position: relative;
   text-align: center;
   padding: clamp(3.25rem, 8vw, 6rem) clamp(1.25rem, 5vw, 4rem);
   background: var(--blush);
-  border-radius: var(--radius);
+  border-radius: var(--radius-card);
   overflow: hidden;
 }
 .contact__card::before,
@@ -234,7 +236,7 @@
 .contact__card::before { width: 320px; height: 320px; left: -120px; top: -140px; }
 .contact__card::after { width: 400px; height: 400px; right: -160px; bottom: -220px; border-color: var(--gold); opacity: 0.45; }
 .contact__card .eyebrow::after { content: ''; width: 28px; height: 1px; background: currentColor; }
-.contact__title { margin-top: 1rem; font-size: clamp(2.2rem, 5vw, 3.8rem); font-style: italic; font-weight: 400; }
+.contact__title { margin-top: 1rem; font-size: clamp(1.8rem, 3.6vw, 2.8rem); font-weight: 600; }
 .contact__text { margin: 1rem auto 2.1rem; max-width: 44ch; color: var(--text-muted); font-size: 1.05rem; }
 .contact__note { margin-top: 1.1rem; font-size: 0.8rem; color: var(--text-muted); }
 
@@ -257,7 +259,7 @@
 }
 @media (max-width: 560px) {
   .hero__ctas .btn { width: 100%; }
-  .hero__slide figcaption a { font-size: 0.9rem; padding: 0.5rem 0.9rem; }
+  .hero__slide figcaption a { font-size: 0.82rem; padding: 0.5rem 0.9rem; }
   .usps__grid { grid-template-columns: 1fr 1fr; }
   .usps__item { padding: 1.1rem 0.5rem; gap: 0.6rem; }
   .usps__item:nth-child(odd) { border-left: 0; padding-left: 0; }

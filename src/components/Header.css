@@ -134,8 +134,9 @@
 .mobile-menu.is-open { opacity: 1; visibility: visible; transition: opacity 0.3s var(--ease), visibility 0s; }
 .mobile-menu__nav { display: flex; flex-direction: column; }
 .mobile-menu__link {
-  font-family: var(--font-serif);
-  font-size: 1.75rem;
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  font-weight: 500;
   padding: 0.7rem 0;
   border-bottom: 1px solid var(--border);
   color: var(--text);
@@ -144,7 +145,7 @@
   transition: opacity 0.4s var(--ease), transform 0.4s var(--ease), color 0.3s;
 }
 .mobile-menu.is-open .mobile-menu__link { opacity: 1; transform: none; }
-.mobile-menu__link.is-active { color: var(--gold-deep); font-style: italic; }
+.mobile-menu__link.is-active { color: var(--gold-deep); font-weight: 600; }
 .mobile-menu__cta { width: 100%; }
 
 @media (min-width: 961px) {

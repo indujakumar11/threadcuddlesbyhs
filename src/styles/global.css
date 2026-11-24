@@ -12,11 +12,14 @@
   --text-muted: #8b7770;
   --border: #f0e4de;
 
-  --font-serif: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
-  --font-sans: 'Jost', 'Lato', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  /* Epilogue for everything (as on the reference site); Playfair Display only for the logo and hero title */
+  --font-sans: 'Epilogue', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-heading: var(--font-sans);
+  --font-display: 'Playfair Display', Georgia, serif;
 
   --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
-  --radius: 4px;
+  --radius: 20px;
+  --radius-card: 24px;
   --shadow-soft: 0 24px 50px -28px rgba(73, 53, 47, 0.35);
 
   --header-h: 127px; /* two-row sticky header on desktop */
@@ -48,6 +51,7 @@ body {
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.7;
+  letter-spacing: 0.01em;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   overflow-x: hidden;
@@ -59,10 +63,10 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 ul { list-style: none; margin: 0; padding: 0; }
 h1, h2, h3, h4, p { margin: 0; }
 h1, h2, h3, h4 {
-  font-family: var(--font-serif);
-  font-weight: 500;
-  line-height: 1.12;
-  letter-spacing: -0.005em;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: 0;
   color: var(--text);
 }
 ::selection { background: var(--accent); color: var(--text); }
@@ -121,9 +125,9 @@ h1, h2, h3, h4 {
 }
 .section-heading__title {
   margin-top: 1rem;
-  font-size: clamp(2.2rem, 4.6vw, 3.6rem);
+  font-size: clamp(1.7rem, 3vw, 2.4rem);
 }
-.section-heading__title em { font-style: italic; color: var(--gold-deep); }
+.section-heading__title em { font-style: normal; color: var(--gold-deep); }
 .section-heading__text {
   margin-top: 1rem;
   color: var(--text-muted);
