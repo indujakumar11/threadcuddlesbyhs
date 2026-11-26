@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Search, X } from 'lucide-react';
-import PageHeader from '../components/PageHeader.jsx';
 import ProductCard from '../components/ProductCard.jsx';
 import WhatsAppButton from '../components/WhatsAppButton.jsx';
 import { products } from '../data/products.js';
@@ -57,15 +56,7 @@ export default function Shop() {
 
   return (
     <main id="main" className="page shop">
-      <PageHeader
-        crumbs={[{ label: 'Shop', to: activeCategory ? '/shop' : undefined }, ...(activeCategory ? [{ label: activeCategory.name }] : [])]}
-        eyebrow="The Collection"
-        title={activeCategory ? <>{activeCategory.name}</> : <>Handmade, <em>with love</em></>}
-        text={
-          activeCategory?.description ??
-          'Browse our handcrafted pieces. Every design has a unique ID — mention it when you enquire on WhatsApp.'
-        }
-      />
+      <h1 className="visually-hidden">{activeCategory ? activeCategory.name : 'Shop all designs'}</h1>
 
       <section className="shop__body">
         <div className="container">

@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
-import PageHeader from '../components/PageHeader.jsx';
 import Reveal from '../components/Reveal.jsx';
 import { categories } from '../data/categories.js';
 import { getProductsByCategory } from '../data/products.js';
@@ -16,12 +15,7 @@ export default function Categories() {
 
   return (
     <main id="main" className="page categories-page">
-      <PageHeader
-        crumbs={[{ label: 'Categories' }]}
-        eyebrow="Collections"
-        title={<>Explore our <em>collections</em></>}
-        text="Each collection is made by hand in small batches. Choose a category to see every design."
-      />
+      <h1 className="visually-hidden">Our collections</h1>
 
       <div className="container">
         {categories.map((cat, i) => {
