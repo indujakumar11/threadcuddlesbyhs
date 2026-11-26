@@ -45,7 +45,11 @@ export default function Shop() {
     return products.filter((p) => {
       if (activeCategory && p.category !== activeCategory.slug) return false;
       if (!q) return true;
-      return normalise(p.name).includes(q) || p.id.toLowerCase().includes(q.replace(/\s/g, ''));
+      const qid = q.replace(/\s/g, '');
+      return (
+        normalise(p.name).includes(q) ||
+        [p.id, ...(p.formerIds ?? [])].some((pid) => pid.toLowerCase().includes(qid))
+      );
     });
   }, [activeCategory, query]);
 

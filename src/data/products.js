@@ -5,6 +5,9 @@
  *  - `id` is permanent and unique. Never reuse or renumber an ID, even if a
  *    product is removed. New products get the next number for their prefix
  *    (BGL = bangles, HAR = hair accessories, SRP = saree pins).
+ *  - When two listings turn out to be the same item, keep one and list the other
+ *    IDs in `formerIds` — old links and ID searches then open the kept product.
+ *    Retired IDs (never reuse): BGL003, BGL004, BGL006, BGL007, BGL010.
  *  - `images` paths point to the optimised copies in /public/images. The first
  *    image is the cover. A smaller "-sm" version is used automatically on cards.
  *  - `price` is a number in INR or `null` (price is then hidden).
@@ -37,81 +40,46 @@ export const products = [
     id: 'BGL002',
     name: 'Teal Stone-Studded Bangle Set',
     category: 'bangles',
+    // BGL003 and BGL004 were photos of this same set and are merged here.
+    formerIds: ['BGL003', 'BGL004'],
     description:
-      'Rich teal silk thread bangles layered with rows of sparkling stones and fine gold borders — a statement stack for festive occasions.',
+      'Rich teal bangles layered with rows of sparkling stones and fine gold borders — a statement stack for festive occasions that can be worn as a full wrist set.',
     price: null,
     images: [
       img('bangles', 'img_6552'),
       img('bangles', 'img_6617'),
       img('bangles', 'img_6605'),
       img('bangles', 'img_6561'),
+      img('bangles', 'img_6591'),
+      img('bangles', 'img_6612'),
+      img('bangles', 'img_6554'),
+      img('bangles', 'img_6610'),
     ],
-    features: ['Handcrafted', 'Stone-studded detailing', 'Premium silk thread', 'Customisable size'],
+    features: ['Handcrafted', 'Stone-studded detailing', 'Full wrist set', 'Customisable size'],
     available: true,
     featured: true,
-  },
-  {
-    id: 'BGL003',
-    name: 'Teal Silk Bangles with Gold Kada',
-    category: 'bangles',
-    description:
-      'Glossy teal silk thread bangles paired with a gold-beaded kada for a polished, elegant look that suits both sarees and lehengas.',
-    price: null,
-    images: [img('bangles', 'img_6591'), img('bangles', 'img_6612'), img('bangles', 'img_6554')],
-    features: ['Handcrafted', 'Premium silk thread', 'Includes kada', 'Customisable colours'],
-    available: true,
-    featured: false,
-    popular: true,
-  },
-  {
-    id: 'BGL004',
-    name: 'Teal Grand Bangle Stack',
-    category: 'bangles',
-    description:
-      'A generous stack of teal silk thread bangles with stone accents, designed to be worn as a full wrist set for weddings and celebrations.',
-    price: null,
-    images: [img('bangles', 'img_6610')],
-    features: ['Handcrafted', 'Full wrist set', 'Stone accents', 'Customisable size'],
-    available: true,
-    featured: false,
     popular: true,
   },
   {
     id: 'BGL005',
     name: 'Antique Gold Kundan Bangle Set',
     category: 'bangles',
+    // BGL006 and BGL007 were photos of this same set and are merged here.
+    formerIds: ['BGL006', 'BGL007'],
     description:
-      'Antique-gold bangles adorned with floral kundan work and magenta stones. Traditional craftsmanship with a regal, heirloom finish.',
+      'Antique-gold silk thread bangles and broad kadas adorned with floral kundan work and magenta stones. Traditional craftsmanship with a regal, heirloom finish.',
     price: null,
-    images: [img('bangles', 'img_6553'), img('bangles', 'img_6574'), img('bangles', 'img_6568')],
+    images: [
+      img('bangles', 'img_6553'),
+      img('bangles', 'img_6574'),
+      img('bangles', 'img_6568'),
+      img('bangles', 'img_6566'),
+      img('bangles', 'img_6590'),
+      img('bangles', 'img_6618'),
+    ],
     features: ['Handcrafted', 'Kundan detailing', 'Antique gold finish', 'Bridal favourite'],
     available: true,
     featured: true,
-  },
-  {
-    id: 'BGL006',
-    name: 'Kundan Kada Collection',
-    category: 'bangles',
-    description:
-      'A collection of broad kundan kadas with gold floral motifs and jewel-toned stones, ideal for layering with silk thread bangles.',
-    price: null,
-    images: [img('bangles', 'img_6566'), img('bangles', 'img_6590')],
-    features: ['Handcrafted', 'Broad kada', 'Kundan stones', 'Mix & match'],
-    available: true,
-    featured: true,
-    popular: true,
-  },
-  {
-    id: 'BGL007',
-    name: 'Pink Kemp Stone Broad Bangle',
-    category: 'bangles',
-    description:
-      'A broad antique-gold bangle set with rows of pink kemp stones — a bold centrepiece for traditional attire.',
-    price: null,
-    images: [img('bangles', 'img_6618')],
-    features: ['Handcrafted', 'Kemp stones', 'Broad design', 'Festive wear'],
-    available: true,
-    featured: false,
     popular: true,
   },
   {
@@ -135,25 +103,20 @@ export const products = [
     id: 'BGL009',
     name: 'Lime Green Geometric Bangle Set',
     category: 'bangles',
+    // BGL010 was a photo of this same set and is merged here.
+    formerIds: ['BGL010'],
     description:
-      'Fresh lime green bangles with a hand-worked geometric pattern, paired with plain silk thread bangles for a playful festive stack.',
+      'Fresh lime green bangles with a hand-worked geometric pattern and green stone borders, paired with plain silk thread bangles for a playful festive stack — perfect for haldi and mehendi.',
     price: null,
-    images: [img('bangles', 'img_6560'), img('bangles', 'img_6582'), img('bangles', 'img_6619')],
+    images: [
+      img('bangles', 'img_6560'),
+      img('bangles', 'img_6582'),
+      img('bangles', 'img_6619'),
+      img('bangles', 'img_6575'),
+    ],
     features: ['Handcrafted', 'Geometric pattern', 'Stackable set', 'Customisable colours'],
     available: true,
     featured: true,
-  },
-  {
-    id: 'BGL010',
-    name: 'Lime & Gold Silk Thread Bangles',
-    category: 'bangles',
-    description:
-      'Bright lime silk thread bangles edged with gold beads — cheerful, light and perfect for haldi and mehendi celebrations.',
-    price: null,
-    images: [img('bangles', 'img_6575')],
-    features: ['Handcrafted', 'Premium silk thread', 'Lightweight', 'Customisable size'],
-    available: true,
-    featured: false,
     newArrival: true,
   },
   {
@@ -311,8 +274,14 @@ export const products = [
 ];
 
 // ───────────── Helpers ─────────────
-export const getProductById = (id) =>
-  products.find((p) => p.id.toLowerCase() === String(id).toLowerCase());
+/** Finds a product by its ID, or by a retired ID that was merged into it (`formerIds`). */
+export const getProductById = (id) => {
+  const key = String(id).toLowerCase();
+  return (
+    products.find((p) => p.id.toLowerCase() === key) ??
+    products.find((p) => p.formerIds?.some((f) => f.toLowerCase() === key))
+  );
+};
 
 export const getProductsByCategory = (slug) => products.filter((p) => p.category === slug);
 
@@ -329,8 +298,10 @@ export const getRelatedProducts = (product, limit = 4) =>
 if (import.meta.env.DEV) {
   const ids = new Set();
   for (const p of products) {
-    if (ids.has(p.id)) console.error(`[products] Duplicate product ID: ${p.id}`);
-    ids.add(p.id);
+    for (const pid of [p.id, ...(p.formerIds ?? [])]) {
+      if (ids.has(pid)) console.error(`[products] Duplicate product ID: ${pid}`);
+      ids.add(pid);
+    }
     const cat = categories.find((c) => c.slug === p.category);
     if (!cat) console.error(`[products] ${p.id} has unknown category "${p.category}"`);
     else if (!p.id.startsWith(cat.idPrefix))

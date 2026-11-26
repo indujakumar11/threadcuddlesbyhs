@@ -34,7 +34,7 @@ export const siteConfig = {
     text: 'Discover beautifully handcrafted silk thread bangles and traditional accessories, thoughtfully designed to make every occasion special.',
     // Hero slides use real product photography. `productId` links the slide to that product.
     slides: [
-      { image: asset('images/bangles/img_6566.webp'), productId: 'BGL006', label: 'Kundan Kada Collection' },
+      { image: asset('images/bangles/img_6566.webp'), productId: 'BGL005', label: 'Antique Gold Kundan Bangle Set' },
       { image: asset('images/saree-pins/img_6586.webp'), productId: 'SRP001', label: 'Violet Bloom Saree Pin' },
       { image: asset('images/hair-accessories/img_6614.webp'), productId: 'HAR001', label: 'Pearl Lotus Hair Brooch' },
       { image: asset('images/bangles/img_6588.webp'), productId: 'BGL008', label: 'Emerald Stone Bangle Set' },

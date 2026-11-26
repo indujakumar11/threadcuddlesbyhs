@@ -7,9 +7,27 @@ export default function ProductGallery({ images = [], name }) {
   const list = images.length ? images : [PLACEHOLDER_IMAGE];
   const [active, setActive] = useState(0);
   const touchX = useRef(null);
+  const thumbsRef = useRef(null);
 
   // Reset when navigating between products.
   useEffect(() => setActive(0), [images]);
+
+  // Keep the active thumbnail visible inside the (scrollable) thumbnail strip, without moving the page.
+  useEffect(() => {
+    const strip = thumbsRef.current;
+    const thumb = strip?.children[active];
+    if (!strip || !thumb) return;
+    const vertical = strip.scrollHeight > strip.clientHeight;
+    if (vertical) {
+      const top = thumb.offsetTop - strip.offsetTop;
+      if (top < strip.scrollTop || top + thumb.offsetHeight > strip.scrollTop + strip.clientHeight)
+        strip.scrollTo({ top: top - (strip.clientHeight - thumb.offsetHeight) / 2, behavior: 'smooth' });
+    } else {
+      const left = thumb.offsetLeft - strip.offsetLeft;
+      if (left < strip.scrollLeft || left + thumb.offsetWidth > strip.scrollLeft + strip.clientWidth)
+        strip.scrollTo({ left: left - (strip.clientWidth - thumb.offsetWidth) / 2, behavior: 'smooth' });
+    }
+  }, [active]);
 
   const go = (dir) => setActive((i) => (i + dir + list.length) % list.length);
 
@@ -67,7 +85,7 @@ export default function ProductGallery({ images = [], name }) {
       </div>
 
       {list.length > 1 && (
-        <div className="gallery__thumbs" role="tablist" aria-label="Choose image">
+        <div className="gallery__thumbs" role="tablist" aria-label="Choose image" ref={thumbsRef}>
           {list.map((src, i) => (
             <button
               type="button"

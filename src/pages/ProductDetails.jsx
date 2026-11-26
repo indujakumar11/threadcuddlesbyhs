@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, Navigate, useParams } from 'react-router-dom';
 import { ArrowLeft, Check, Copy } from 'lucide-react';
 import ProductGallery from '../components/ProductGallery.jsx';
 import ProductCarousel from '../components/ProductCarousel.jsx';
@@ -29,6 +29,11 @@ export default function ProductDetails() {
         text={`We couldn’t find a product with the ID “${id}”. It may have been renamed or is no longer listed.`}
       />
     );
+  }
+
+  // an old (merged) ID: send the visitor to the product's current address
+  if (product.id.toLowerCase() !== String(id).toLowerCase()) {
+    return <Navigate to={`/product/${product.id}`} replace />;
   }
 
   const category = getCategoryBySlug(product.category);
