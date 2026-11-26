@@ -5,8 +5,12 @@
  * - Output: public/images/<category>/<file>.webp (1400px) and <file>-sm.webp (640px)
  * - EXIF orientation is applied so portrait phone photos display upright.
  *
+ * Source: "Bangles/Enhanced image" (cleaned, sharpened copies) when it exists,
+ * otherwise "Bangles/Raw image".
+ *
  * Usage:
- *   npm run images
+ *   npm run images                  (only creates missing files)
+ *   FORCE=1 npm run images          (re-creates every file, e.g. after new photo edits)
  *   RAW_IMAGES_DIR="D:/path/to/Raw image" npm run images
  *
  * When upgraded product photography is ready, drop the new files into the raw
@@ -20,10 +24,10 @@ import { fileURLToPath } from 'node:url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..');
-const RAW_DIR =
-  process.env.RAW_IMAGES_DIR ||
-  path.resolve(ROOT, '..', '..', 'Bangles', 'Raw image');
+const PHOTOS = path.resolve(ROOT, '..', '..', 'Bangles');
 const OUT_DIR = path.join(ROOT, 'public', 'images');
+const FORCE = Boolean(process.env.FORCE);
+let RAW_DIR = process.env.RAW_IMAGES_DIR;
 
 // Raw folder name -> category slug used in the website.
 const FOLDER_MAP = {
@@ -47,6 +51,10 @@ async function exists(p) {
 }
 
 async function run() {
+  if (!RAW_DIR) {
+    const enhanced = path.join(PHOTOS, 'Enhanced image');
+    RAW_DIR = (await exists(enhanced)) ? enhanced : path.join(PHOTOS, 'Raw image');
+  }
   console.log(`Reading raw images from: ${RAW_DIR}`);
   const seenHashes = new Map();
   let written = 0;
@@ -74,7 +82,7 @@ async function run() {
       const base = path.parse(file).name.toLowerCase();
       for (const size of SIZES) {
         const out = path.join(dest, `${base}${size.suffix}.webp`);
-        if (await exists(out)) continue;
+        if (!FORCE && (await exists(out))) continue;
         await sharp(buf)
           .rotate() // honour EXIF orientation
           .resize({ width: size.width, withoutEnlargement: true })
